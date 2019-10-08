@@ -45,7 +45,7 @@ export default class User extends Component {
     const user = navigation.getParam('user');
 
     const response = await api.get(`/users/${user.login}/starred`, {
-      params: { page, per_page: 10 },
+      params: { page, per_page: 30 },
     });
 
     this.setState({
@@ -94,7 +94,7 @@ export default class User extends Component {
           <Stars
             data={stars}
             keyExtractor={star => String(star.id)}
-            onEndReachedThreshold={0.2} // Carrega mais itens quando chegar em 20% do fim
+            onEndReachedThreshold={0.6} // Carrega mais itens quando chegar em 20% do fim
             onEndReached={this.loadMore} // Função que carrega mais itens
             onRefresh={this.refreshList} // Função dispara quando o usuário arrasta a lista pra baixo
             refreshing={refreshing} // Variável que armazena um estado true/false que representa se a lista está atualizando
