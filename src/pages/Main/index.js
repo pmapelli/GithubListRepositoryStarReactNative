@@ -17,6 +17,7 @@ import {
   Bio,
   ProfileButton,
   ProfileButtonText,
+  DeleteButton,
 } from './styles';
 
 export default class Main extends Component {
@@ -33,12 +34,16 @@ export default class Main extends Component {
   };
 
   async componentDidMount() {
+    this.load();
+  }
+
+  load = async () => {
     const users = await AsyncStorage.getItem('users');
 
     if (users) {
       this.setState({ users: JSON.parse(users) });
     }
-  }
+  };
 
   async componentDidUpdate(_, prevState) {
     const { users } = this.state;
@@ -75,6 +80,12 @@ export default class Main extends Component {
     const { navigation } = this.props;
 
     navigation.navigate('User', { user });
+  };
+
+  handleDelete = async user => {
+    await AsyncStorage.removeItem(user.login);
+
+    this.load();
   };
 
   static navigationOptions = {
@@ -117,6 +128,9 @@ export default class Main extends Component {
               <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>Ver Perfil</ProfileButtonText>
               </ProfileButton>
+              <DeleteButton onPress={() => this.handleDelete(item)}>
+                <ProfileButtonText>Remover Perfil</ProfileButtonText>
+              </DeleteButton>
             </User>
           )}
         />

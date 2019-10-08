@@ -30,6 +30,7 @@ export default class User extends Component {
 
   state = {
     stars: [],
+    page: 1,
     loading: true,
     refreshing: false,
   };
@@ -67,10 +68,18 @@ export default class User extends Component {
     this.setState({ refreshing: true, stars: [] }, this.load);
   };
 
+  handleNavigate = repository => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Repository', { repository });
+  };
+
   render() {
     const { navigation } = this.props;
-    const { stars, loading } = this.state;
+    const { stars, loading, refreshing } = this.state;
+
     const user = navigation.getParam('user');
+
     return (
       <Container>
         <Header>
@@ -78,6 +87,7 @@ export default class User extends Component {
           <Name>{user.Name}</Name>
           <Bio>{user.bio}</Bio>
         </Header>
+
         {loading ? (
           <Loading />
         ) : (
@@ -87,9 +97,9 @@ export default class User extends Component {
             onEndReachedThreshold={0.2} // Carrega mais itens quando chegar em 20% do fim
             onEndReached={this.loadMore} // Função que carrega mais itens
             onRefresh={this.refreshList} // Função dispara quando o usuário arrasta a lista pra baixo
-            refreshing={this.state.refreshing} // Variável que armazena um estado true/false que representa se a lista está atualizando
+            refreshing={refreshing} // Variável que armazena um estado true/false que representa se a lista está atualizando
             renderItem={({ item }) => (
-              <Starred>
+              <Starred onPress={() => this.handleNavigate(item)}>
                 <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
                 <Info>
                   <Title>{item.name}</Title>
