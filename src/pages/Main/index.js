@@ -18,6 +18,7 @@ import {
   ProfileButton,
   ProfileButtonText,
   DeleteButton,
+  Buttons,
 } from './styles';
 
 export default class Main extends Component {
@@ -42,7 +43,10 @@ export default class Main extends Component {
 
     if (users) {
       this.setState({ users: JSON.parse(users) });
+      return;
     }
+
+    this.setState({ users: [] });
   };
 
   async componentDidUpdate(_, prevState) {
@@ -83,9 +87,21 @@ export default class Main extends Component {
   };
 
   handleDelete = async user => {
-    await AsyncStorage.removeItem(user.login);
+    try {
+      let usersJSON = await AsyncStorage.getItem('users');
 
-    this.load();
+      let usersArray = JSON.parse(usersJSON);
+
+      const alteredUsers = usersArray.filter(function(e) {
+        return e.login !== user.login;
+      });
+
+      AsyncStorage.setItem('users', JSON.stringify(alteredUsers));
+
+      this.load();
+    } catch (error) {
+      console.tron.log(error);
+    }
   };
 
   static navigationOptions = {
@@ -124,13 +140,14 @@ export default class Main extends Component {
               <Avatar source={{ uri: item.avatar }} />
               <Name>{item.Name}</Name>
               <Bio>{item.bio}</Bio>
-
-              <ProfileButton onPress={() => this.handleNavigate(item)}>
-                <ProfileButtonText>Ver Perfil</ProfileButtonText>
-              </ProfileButton>
-              <DeleteButton onPress={() => this.handleDelete(item)}>
-                <ProfileButtonText>Remover Perfil</ProfileButtonText>
-              </DeleteButton>
+              <Buttons>
+                <ProfileButton onPress={() => this.handleNavigate(item)}>
+                  <ProfileButtonText>Ver Perfil</ProfileButtonText>
+                </ProfileButton>
+                <DeleteButton onPress={() => this.handleDelete(item)}>
+                  <ProfileButtonText>Remover Perfil</ProfileButtonText>
+                </DeleteButton>
+              </Buttons>
             </User>
           )}
         />

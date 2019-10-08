@@ -71,23 +71,25 @@ export const Bio = styled.Text.attrs({
 `;
 
 export const ProfileButton = styled(RectButton)`
-  margin-top: 10px;
   align-self: stretch;
   border-radius: 4px;
   background: #7159c1;
   justify-content: center;
   align-items: center;
   height: 36px;
+  width: 120px;
+  margin: 0 10px 30px;
 `;
 
 export const DeleteButton = styled(RectButton)`
-  margin-top: 10px;
   align-self: stretch;
   border-radius: 4px;
   background: #dc143c;
   justify-content: center;
   align-items: center;
   height: 36px;
+  width: 120px;
+  margin: 0 10px 30px;
 `;
 
 export const ProfileButtonText = styled.Text`
@@ -95,4 +97,10 @@ export const ProfileButtonText = styled.Text`
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
+`;
+
+export const Buttons = styled.View`
+  margin-top: 10px;
+  flex-direction: row;
+  align-items: center;
 `;
