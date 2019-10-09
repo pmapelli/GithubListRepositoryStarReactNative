@@ -104,3 +104,5 @@ export const Buttons = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+
+export const View = styled.View``;

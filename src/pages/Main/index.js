@@ -1,3 +1,4 @@
+import DropdownAlert from 'react-native-dropdownalert';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Keyboard, ActivityIndicator } from 'react-native';
@@ -19,6 +20,7 @@ import {
   ProfileButtonText,
   DeleteButton,
   Buttons,
+  View,
 } from './styles';
 
 export default class Main extends Component {
@@ -62,20 +64,32 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
-    const response = await api.get(`/users/${newUser}`);
+    try {
+      const response = await api.get(`/users/${newUser}`);
 
-    const data = {
-      name: response.data.name,
-      login: response.data.login,
-      bio: response.data.bio,
-      avatar: response.data.avatar_url,
-    };
+      const data = {
+        name: response.data.name,
+        login: response.data.login,
+        bio: response.data.bio,
+        avatar: response.data.avatar_url,
+      };
 
-    this.setState({
-      users: [...users, data],
-      newUser: '',
-      loading: false,
-    });
+      this.setState({
+        users: [data, ...users],
+        newUser: '',
+        loading: false,
+      });
+    } catch (error) {
+      this.dropDownAlertRef.alertWithType('error', 'Erro', error.message);
+      console.tron.log(error);
+
+      this.setState({
+        newUser: '',
+        loading: false,
+      });
+
+      this.load();
+    }
 
     Keyboard.dismiss();
   };
@@ -100,6 +114,7 @@ export default class Main extends Component {
 
       this.load();
     } catch (error) {
+      this.dropDownAlertRef.alertWithType('error', 'Error', error.message);
       console.tron.log(error);
     }
   };
@@ -130,6 +145,7 @@ export default class Main extends Component {
               <Icon name="add" size={20} color="#FFF" />
             )}
           </SubmitButton>
+          <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
         </Form>
 
         <List
