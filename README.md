@@ -22,7 +22,7 @@ App Android que permite salvar uma lista de usuários do Github e acessar todos 
 
 ![AddedUser](https://user-images.githubusercontent.com/15129047/66474645-161cdf00-ea68-11e9-9ad0-ba49ad5d2c5f.png)
 
-> Lista de repositório marcados com estrela
+> Lista de repositórios marcados com estrela
 
 ![StarmarkedGithubRepositoryList](https://user-images.githubusercontent.com/15129047/66474646-161cdf00-ea68-11e9-8ba0-5b7738af0b61.png)
 
