@@ -34,3 +34,7 @@ App Android que permite salvar uma lista de usuários do Github e acessar todos 
 > Reactotron com chamadas realizadas à api
 
 ![Reactotron](https://user-images.githubusercontent.com/15129047/66474648-161cdf00-ea68-11e9-9990-2382ed20f283.png)
+
+# Vídeo de demosntração
+
+[![Watch the video](https://user-images.githubusercontent.com/15129047/66520105-ecdb6d80-eabe-11e9-9f6f-472be13b7082.png)](https://vimeo.com/user59146911/review/365381099/78dac2c50c)
