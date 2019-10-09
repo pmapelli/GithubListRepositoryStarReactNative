@@ -11,6 +11,7 @@ App Android que permite salvar uma lista de usuários do Github e acessar todos 
 - Babel
 - Eslint
 - Prettier
+- DropdownAlert
 
 # Images
 
